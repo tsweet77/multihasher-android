@@ -37,7 +37,7 @@
 
 ## License
 
-This project is licensed under the GPTv3 License.
+This project is licensed under the GPLv3 License.
 
 ## Contributing
 

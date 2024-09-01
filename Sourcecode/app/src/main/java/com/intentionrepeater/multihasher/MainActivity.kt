@@ -30,6 +30,8 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.Locale
 
+const val VERSION = "Version 1.2"
+
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -183,6 +185,9 @@ fun MultiHasherApp() {
         ) {
             Text(if (isHashing) "Stop" else "Start")
         }
+
+        // Add this line to display the version below the "Start" button
+        Text(VERSION, fontSize = 12.sp)
     }
 }
 
@@ -236,14 +241,14 @@ suspend fun startHashing(
 
     withContext(Dispatchers.Default) {
         for (level in 1..hashLevels) {
-            repeatedText = hashedText.repeat(repsPerLevel) // Repeat using the current hash value
+            repeatedText = (1..repsPerLevel).joinToString("\n") { hashedText } // Repeat using the current hash value
             hashedText = sha512(repeatedText)
 
             repeatedHash = ""
             for (i in 1..repsPerLevel) {
-                repeatedHash += hashedText
+                repeatedHash += "$originalText: $hashedText\n"
             }
-            hashedText = sha512(repeatedHash)
+            hashedText = sha512("$originalText: $repeatedHash")
 
             // Update the UI after completing each hash level
             withContext(Dispatchers.Main) {

@@ -3,7 +3,9 @@ package com.intentionrepeater.multihasher
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -26,11 +28,13 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.*
+//import kotlinx.coroutines.flow.internal.NoOpContinuation.context
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.util.Locale
+//import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 
-const val VERSION = "Version 1.2"
+const val VERSION = "Version 1.3"
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,6 +79,22 @@ fun MultiHasherApp() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text("Multi-Hasher by Anthro Teacher", fontSize = 20.sp)
+
+        // Correct placement: File picker launcher inside a @Composable function
+        val filePickerLauncher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.OpenDocument(),
+            onResult = { uri ->
+                uri?.let {
+                    val inputStream = context.contentResolver.openInputStream(it)
+                    inputStream?.let {
+                        val bytes = inputStream.readBytes()
+                        val hash = sha512(bytes.toString(Charsets.UTF_8))
+                        intentionText = TextFieldValue(intentionText.text + "\n" + hash)
+                        inputStream.close()
+                    }
+                }
+            }
+        )
 
         // Multiline Intention Box with 5 lines shown but allowing unlimited input
         OutlinedTextField(
@@ -149,41 +169,64 @@ fun MultiHasherApp() {
             maxLines = Int.MAX_VALUE // Allows wrapping if the hash is too long
         )
 
-        Text(statusLabel, fontSize = 12.sp)
+        Spacer(modifier = Modifier.height(16.dp))
 
-        // Start/Stop Button remains enabled
-        Button(
-            onClick = {
-                if (isHashing) {
-                    isHashing = false
-                    hashingJob?.cancel()
-                    statusLabel = "Hashing stopped."
-                } else {
-                    isHashing = true
-                    statusLabel = "Calculating First Hash..."
-                    hashingJob = coroutineScope.launch {
-                        startHashing(
-                            intentionText.text,
-                            numHashLevels,
-                            numRepsPerHashLevel,
-                            encodingLevel,
-                            onUpdateHashDisplay = { hashDisplay = it },
-                            onUpdateStatusLabel = { statusLabel = it },
-                            onComplete = {
-                                isHashing = false
-                                statusLabel = "Hashing completed."
-                            }
-                        )
-                    }
-                }
-            },
-            enabled = isStartButtonEnabled,  // Button always enabled while toggling between Start/Stop
-            colors = ButtonDefaults.buttonColors(
-                containerColor = if (isHashing) Color.Red else Color.Green,
-                contentColor = Color.White
-            )
+        Text(statusLabel, fontSize = 16.sp)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(8.dp) // Adds space between buttons
         ) {
-            Text(if (isHashing) "Stop" else "Start")
+            // Load File Button on the left
+            Button(
+                onClick = { filePickerLauncher.launch(arrayOf("*/*")) },
+                enabled = !disableAllInputs,
+                modifier = Modifier
+                    .weight(1f) // Makes the button take equal width
+                    .height(48.dp)
+            ) {
+                Text("Load File")
+            }
+
+            // Start Button on the right
+            Button(
+                onClick = {
+                    if (isHashing) {
+                        isHashing = false
+                        hashingJob?.cancel()
+                        statusLabel = "Hashing stopped."
+                    } else {
+                        isHashing = true
+                        statusLabel = "Calculating First Hash..."
+                        hashingJob = coroutineScope.launch {
+                            startHashing(
+                                intentionText.text,
+                                numHashLevels,
+                                numRepsPerHashLevel,
+                                encodingLevel,
+                                onUpdateHashDisplay = { hashDisplay = it },
+                                onUpdateStatusLabel = { statusLabel = it },
+                                onComplete = {
+                                    isHashing = false
+                                    statusLabel = "Hashing completed."
+                                }
+                            )
+                        }
+                    }
+                },
+                enabled = isStartButtonEnabled,
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (isHashing) Color.Red else Color.Green,
+                    contentColor = Color.White
+                ),
+                modifier = Modifier
+                    .weight(1f) // Makes the button take equal width
+                    .height(48.dp)
+            ) {
+                Text(if (isHashing) "Stop" else "Start")
+            }
         }
 
         // Add this line to display the version below the "Start" button

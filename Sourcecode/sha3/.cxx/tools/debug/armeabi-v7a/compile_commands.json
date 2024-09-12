@@ -1,0 +1,22 @@
+[
+{
+  "directory": "C:/22/MultiHasher/sha3/.cxx/Debug/3yr64e4i/armeabi-v7a",
+  "command": "C:\\sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi28 --sysroot=C:/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dsha3_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles\\sha3.dir\\sha3.cpp.o -c C:\\22\\MultiHasher\\sha3\\src\\main\\cpp\\sha3.cpp",
+  "file": "C:\\22\\MultiHasher\\sha3\\src\\main\\cpp\\sha3.cpp"
+},
+{
+  "directory": "C:/22/MultiHasher/sha3/.cxx/Debug/3yr64e4i/armeabi-v7a",
+  "command": "C:\\sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi28 --sysroot=C:/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dsha3_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles\\sha3.dir\\keccak1600.cpp.o -c C:\\22\\MultiHasher\\sha3\\src\\main\\cpp\\keccak1600.cpp",
+  "file": "C:\\22\\MultiHasher\\sha3\\src\\main\\cpp\\keccak1600.cpp"
+},
+{
+  "directory": "C:/22/MultiHasher/sha3/.cxx/Debug/3yr64e4i/armeabi-v7a",
+  "command": "C:\\sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi28 --sysroot=C:/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dsha3_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles\\sha3.dir\\sha3_.cpp.o -c C:\\22\\MultiHasher\\sha3\\src\\main\\cpp\\sha3_.cpp",
+  "file": "C:\\22\\MultiHasher\\sha3\\src\\main\\cpp\\sha3_.cpp"
+},
+{
+  "directory": "C:/22/MultiHasher/sha3/.cxx/Debug/3yr64e4i/armeabi-v7a",
+  "command": "C:\\sdk\\ndk\\26.1.10909125\\toolchains\\llvm\\prebuilt\\windows-x86_64\\bin\\clang++.exe --target=armv7-none-linux-androideabi28 --sysroot=C:/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/windows-x86_64/sysroot -Dsha3_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles\\sha3.dir\\sha512.cpp.o -c C:\\22\\MultiHasher\\sha3\\src\\main\\cpp\\sha512.cpp",
+  "file": "C:\\22\\MultiHasher\\sha3\\src\\main\\cpp\\sha512.cpp"
+}
+]

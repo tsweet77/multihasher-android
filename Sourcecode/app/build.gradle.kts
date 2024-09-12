@@ -4,15 +4,15 @@ plugins {
 }
 
 android {
-    namespace = "com.intentionrepeater.multihasher"
+    namespace = "com.anthroteacher.multihasher"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.intentionrepeater.multihasher"
-        minSdk = 21
+        applicationId = "com.anthroteacher.multihasher"
+        minSdk = 28
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.3"
+        versionCode = 5
+        versionName = "1.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -47,6 +47,8 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    ndkVersion = "27.1.12297006"
+    buildToolsVersion = "35.0.0"
 }
 
 dependencies {
@@ -66,4 +68,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(project(":sha3"))
+
 }

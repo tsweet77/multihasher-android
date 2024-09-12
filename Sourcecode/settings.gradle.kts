@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "Multihasher"
 include(":app")
- 
+include(":hash_algorithm")
+include(":sha3")

@@ -1,0 +1,38 @@
+{
+  "buildFiles": [
+    "/Users/aryanraj/Documents/Projects/multihasher/multihasher-android/Sourcecode/sha3/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/aryanraj/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/aryanraj/Documents/Projects/multihasher/multihasher-android/Sourcecode/sha3/.cxx/RelWithDebInfo/563vq6ng/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/aryanraj/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/aryanraj/Documents/Projects/multihasher/multihasher-android/Sourcecode/sha3/.cxx/RelWithDebInfo/563vq6ng/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "sha3::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "sha3",
+      "output": "/Users/aryanraj/Documents/Projects/multihasher/multihasher-android/Sourcecode/sha3/build/intermediates/cxx/RelWithDebInfo/563vq6ng/obj/x86/libsha3.so",
+      "runtimeFiles": []
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "/Users/aryanraj/Library/Android/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang.lld",
+      "cppCompilerExecutable": "/Users/aryanraj/Library/Android/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++.lld"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

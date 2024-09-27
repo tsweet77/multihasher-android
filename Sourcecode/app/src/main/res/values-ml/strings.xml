@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">അവതരിപ്പ് %1$s</string>
+    <string name="multihasher_by">മൾട്ടീഹാഷർ Anthro Teacher</string>
+    <string name="enter_intention">മൾട്ടി-ഹാഷിന് ഉദ്ദേശ്യം രേഖപ്പെടുത്തുക</string>
+    <string name="hash_levels">ഹാഷ് നിലവാരം [1-1000]: </string>
+    <string name="reps_per_hash">ഹാഷ് നിലവാരത്തിന് ആവർത്തനങ്ങൾ [1-100k]: </string>
+    <string name="hash_copied">ഹാഷ് ക്ലിപ്ബോർഡിലേക്ക് കോപ്പി ചെയ്യപ്പെട്ടു</string>
+    <string name="load_file">ഫയൽ ലോഡ് ചെയ്യുക</string>
+    <string name="hashing_stopped">ഹാഷിംഗ് നിർത്തിയിടപ്പെട്ടു.</string>
+    <string name="calculating_hash">ഹാഷ് ഗണിച്ചുകൊണ്ടിരിക്കുന്നു...</string>
+    <string name="hashing_completed">ഹാഷിംഗ് പൂർത്തിയായി.</string>
+    <string name="stop">നിന്നു</string>
+    <string name="start">ആരംഭിക്കുക</string>
+    <string name="bit64">64-ബിറ്റ്</string>
+    <string name="bit256">256-ബിറ്റ്</string>
+    <string name="bit512">512-ബിറ്റ്</string>
+    <string name="update_language">ഭാഷ അപ്ഡേറ്റ് ചെയ്യുക</string>
+
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">Версія %1$s</string>
+    <string name="multihasher_by">Мультіхешер від Anthro Teacher</string>
+    <string name="enter_intention">Введіть намір для мультихешування</string>
+    <string name="hash_levels">Рівні хешування [1-1000]: </string>
+    <string name="reps_per_hash">Повтори на рівень хешування [1-100k]: </string>
+    <string name="hash_copied">Хеш скопійовано в буфер обміну</string>
+    <string name="load_file">Завантажити файл</string>
+    <string name="hashing_stopped">Хешування зупинено.</string>
+    <string name="calculating_hash">Розрахунок хешу...</string>
+    <string name="hashing_completed">Хешування завершено.</string>
+    <string name="stop">Стоп</string>
+    <string name="start">Почати</string>
+    <string name="bit64">64-біт</string>
+    <string name="bit256">256-біт</string>
+    <string name="bit512">512-біт</string>
+    <string name="update_language">Оновити мову</string>
+
+</resources>

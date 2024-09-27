@@ -23,6 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="android.locale_config"
+            android:resource="@xml/locales_config" />
     </application>
 
 </manifest>

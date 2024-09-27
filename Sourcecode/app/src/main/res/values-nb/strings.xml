@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">Versjon %1$s</string>
+    <string name="multihasher_by">Multihasher av Anthro Teacher</string>
+    <string name="enter_intention">Skriv inn hensikt for multi-hash</string>
+    <string name="hash_levels">Hashnivåer [1-1000]: </string>
+    <string name="reps_per_hash">Repeter per hash-nivå [1-100k]: </string>
+    <string name="hash_copied">Hash kopiert til utklippstavlen</string>
+    <string name="load_file">Last inn fil</string>
+    <string name="hashing_stopped">Hashing stoppet.</string>
+    <string name="calculating_hash">Beregner hash...</string>
+    <string name="hashing_completed">Hashing fullført.</string>
+    <string name="stop">Stopp</string>
+    <string name="start">Start</string>
+    <string name="bit64">64-Bit</string>
+    <string name="bit256">256-Bit</string>
+    <string name="bit512">512-Bit</string>
+    <string name="update_language">Oppdater språk</string>
+
+</resources>

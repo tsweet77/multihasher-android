@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">버전 %1$s</string>
+    <string name="multihasher_by">Anthro Teacher의 멀티해셔</string>
+    <string name="enter_intention">멀티 해시를 위한 의도 입력</string>
+    <string name="hash_levels">해시 레벨 [1-1000]: </string>
+    <string name="reps_per_hash">해시 레벨당 반복 수 [1-100k]: </string>
+    <string name="hash_copied">해시가 클립보드에 복사되었습니다</string>
+    <string name="load_file">파일 불러오기</string>
+    <string name="hashing_stopped">해싱이 중지되었습니다.</string>
+    <string name="calculating_hash">해시 계산 중...</string>
+    <string name="hashing_completed">해싱 완료.</string>
+    <string name="stop">중지</string>
+    <string name="start">시작</string>
+    <string name="bit64">64비트</string>
+    <string name="bit256">256비트</string>
+    <string name="bit512">512비트</string>
+    <string name="update_language">언어 업데이트</string>
+
+</resources>

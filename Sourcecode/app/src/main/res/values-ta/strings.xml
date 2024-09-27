@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">பதிப்பு %1$s</string>
+    <string name="multihasher_by">மல்டிஹாஷர் Anthro Teacher மூலம்</string>
+    <string name="enter_intention">மல்டி-ஹாஷுக்கு நோக்கம் உள்ளிடவும்</string>
+    <string name="hash_levels">ஹாஷ் நிலைகள் [1-1000]: </string>
+    <string name="reps_per_hash">ஹாஷ் நிலை அடிப்படையில் மீள்நிறுத்தங்கள் [1-100k]: </string>
+    <string name="hash_copied">ஹாஷ் கிளிப்போர்ட்டிற்கு நகலெடுக்கப்பட்டது</string>
+    <string name="load_file">கோப்பு ஏற்றவும்</string>
+    <string name="hashing_stopped">ஹாஷிங் நிறுத்தப்பட்டது.</string>
+    <string name="calculating_hash">ஹாஷ் கணக்கிடப்படுகிறது...</string>
+    <string name="hashing_completed">ஹாஷிங் முடிக்கப்பட்டது.</string>
+    <string name="stop">நிறுத்து</string>
+    <string name="start">தொடங்கு</string>
+    <string name="bit64">64-பிட்</string>
+    <string name="bit256">256-பிட்</string>
+    <string name="bit512">512-பிட்</string>
+    <string name="update_language">மொழியை புதுப்பிக்கவும்</string>
+
+</resources>

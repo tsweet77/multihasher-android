@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">Versie %1$s</string>
+    <string name="multihasher_by">Multihasher door Anthro Teacher</string>
+    <string name="enter_intention">Voer intentie in voor Multi-Hash</string>
+    <string name="hash_levels">Hash-niveaus [1-1000]: </string>
+    <string name="reps_per_hash">Herhalingen per Hash-niveau [1-100k]: </string>
+    <string name="hash_copied">Hash gekopieerd naar het klembord</string>
+    <string name="load_file">Laad bestand</string>
+    <string name="hashing_stopped">Hashing gestopt.</string>
+    <string name="calculating_hash">Hash aan het berekenen...</string>
+    <string name="hashing_completed">Hashing voltooid.</string>
+    <string name="stop">Stoppen</string>
+    <string name="start">Starten</string>
+    <string name="bit64">64-Bit</string>
+    <string name="bit256">256-Bit</string>
+    <string name="bit512">512-Bit</string>
+    <string name="update_language">Taal bijwerken</string>
+
+</resources>

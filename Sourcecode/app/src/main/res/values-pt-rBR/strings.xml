@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">Versão %1$s</string>
+    <string name="multihasher_by">Multihasher por Anthro Teacher</string>
+    <string name="enter_intention">Insira a Intenção para Multi-Hash</string>
+    <string name="hash_levels">Níveis de Hash [1-1000]: </string>
+    <string name="reps_per_hash">Repetições por Nível de Hash [1-100k]: </string>
+    <string name="hash_copied">Hash copiado para a área de transferência</string>
+    <string name="load_file">Carregar Arquivo</string>
+    <string name="hashing_stopped">Hashing parado.</string>
+    <string name="calculating_hash">Calculando Hash...</string>
+    <string name="hashing_completed">Hashing concluído.</string>
+    <string name="stop">Parar</string>
+    <string name="start">Começar</string>
+    <string name="bit64">64-Bit</string>
+    <string name="bit256">256-Bit</string>
+    <string name="bit512">512-Bit</string>
+    <string name="update_language">Atualizar Idioma</string>
+
+</resources>

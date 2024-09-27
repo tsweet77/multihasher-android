@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">版本 %1$s</string>
+    <string name="multihasher_by">多重哈希由 Anthro Teacher 提供</string>
+    <string name="enter_intention">输入多重哈希意图</string>
+    <string name="hash_levels">哈希级别 [1-1000]: </string>
+    <string name="reps_per_hash">每个哈希级别的重复次数 [1-100k]: </string>
+    <string name="hash_copied">哈希已复制到剪贴板</string>
+    <string name="load_file">加载文件</string>
+    <string name="hashing_stopped">哈希停止。</string>
+    <string name="calculating_hash">正在计算哈希...</string>
+    <string name="hashing_completed">哈希完成。</string>
+    <string name="stop">停止</string>
+    <string name="start">开始</string>
+    <string name="bit64">64位</string>
+    <string name="bit256">256位</string>
+    <string name="bit512">512位</string>
+    <string name="update_language">更新语言</string>
+
+</resources>

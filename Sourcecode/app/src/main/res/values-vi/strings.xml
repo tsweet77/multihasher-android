@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">Phiên bản %1$s</string>
+    <string name="multihasher_by">Multihasher bởi Anthro Teacher</string>
+    <string name="enter_intention">Nhập Ý định cho Multi-Hash</string>
+    <string name="hash_levels">Cấp độ Hash [1-1000]: </string>
+    <string name="reps_per_hash">Số lần lặp lại trên Cấp độ Hash [1-100k]: </string>
+    <string name="hash_copied">Hash đã được sao chép vào clipboard</string>
+    <string name="load_file">Tải Tệp</string>
+    <string name="hashing_stopped">Hashing đã dừng.</string>
+    <string name="calculating_hash">Đang tính toán Hash...</string>
+    <string name="hashing_completed">Hashing đã hoàn thành.</string>
+    <string name="stop">Dừng lại</string>
+    <string name="start">Bắt đầu</string>
+    <string name="bit64">64-Bit</string>
+    <string name="bit256">256-Bit</string>
+    <string name="bit512">512-Bit</string>
+    <string name="update_language">Cập nhật ngôn ngữ</string>
+
+</resources>

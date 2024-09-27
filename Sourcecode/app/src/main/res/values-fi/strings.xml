@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">Versio %1$s</string>
+    <string name="multihasher_by">Multihasher Anthro Teacherilta</string>
+    <string name="enter_intention">Syötä aikomus Multi-Hashille</string>
+    <string name="hash_levels">Hash-tasot [1-1000]: </string>
+    <string name="reps_per_hash">Toistot jokaiselle Hash-tasolle [1-100k]: </string>
+    <string name="hash_copied">Hash kopioitu leikepöydälle</string>
+    <string name="load_file">Lataa tiedosto</string>
+    <string name="hashing_stopped">Hashing pysäytetty.</string>
+    <string name="calculating_hash">Lasketaan Hashia...</string>
+    <string name="hashing_completed">Hashing valmis.</string>
+    <string name="stop">Pysäytä</string>
+    <string name="start">Aloita</string>
+    <string name="bit64">64-Bittiä</string>
+    <string name="bit256">256-Bittiä</string>
+    <string name="bit512">512-Bittiä</string>
+    <string name="update_language">Päivitä kieli</string>
+
+</resources>

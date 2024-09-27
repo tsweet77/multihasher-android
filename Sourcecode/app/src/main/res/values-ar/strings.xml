@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">الإصدار %1$s</string>
+    <string name="multihasher_by">مولتيهاشر بواسطة Anthro Teacher</string>
+    <string name="enter_intention">أدخل النية للتجزئة المتعددة</string>
+    <string name="hash_levels">مستويات التجزئة [1-1000]: </string>
+    <string name="reps_per_hash">تكرارات لكل مستوى تجزئة [1-100k]: </string>
+    <string name="hash_copied">تم نسخ التجزئة إلى الحافظة</string>
+    <string name="load_file">تحميل الملف</string>
+    <string name="hashing_stopped">تم إيقاف التجزئة.</string>
+    <string name="calculating_hash">جاري حساب التجزئة...</string>
+    <string name="hashing_completed">اكتمل التجزئة.</string>
+    <string name="stop">توقف</string>
+    <string name="start">ابدأ</string>
+    <string name="bit64">64-بت</string>
+    <string name="bit256">256-بت</string>
+    <string name="bit512">512-بت</string>
+    <string name="update_language">تحديث اللغة</string>
+
+</resources>

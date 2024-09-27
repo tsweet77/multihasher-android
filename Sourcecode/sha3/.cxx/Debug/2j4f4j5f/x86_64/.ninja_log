@@ -1,0 +1,6 @@
+# ninja log v5
+1	68	1727475455984146660	CMakeFiles/sha3.dir/sha3_.cpp.o	9c66b3efb54cc963
+0	68	1727475455984172702	CMakeFiles/sha3.dir/keccak1600.cpp.o	6dbbb32886a33c8
+1	89	1727475456001648330	CMakeFiles/sha3.dir/sha512.cpp.o	ec6c9fbaa61e0c8e
+0	287	1727475456189250787	CMakeFiles/sha3.dir/sha3.cpp.o	d62ab9bdbacd25bc
+288	329	1727475456242992806	/Users/aryanraj/Documents/Projects/multihasher/multihasher-android/Sourcecode/sha3/build/intermediates/cxx/Debug/2j4f4j5f/obj/x86_64/libsha3.so	c84824a052c03a1c

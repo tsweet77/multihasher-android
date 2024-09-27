@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">เวอร์ชัน %1$s</string>
+    <string name="multihasher_by">มัลติแฮชโดย Anthro Teacher</string>
+    <string name="enter_intention">ป้อนความตั้งใจในการมัลติแฮช</string>
+    <string name="hash_levels">ระดับแฮช [1-1000]: </string>
+    <string name="reps_per_hash">จำนวนครั้งต่อระดับแฮช [1-100k]: </string>
+    <string name="hash_copied">แฮชถูกคัดลอกไปยังคลิปบอร์ด</string>
+    <string name="load_file">โหลดไฟล์</string>
+    <string name="hashing_stopped">การแฮชหยุดลง</string>
+    <string name="calculating_hash">กำลังคำนวณแฮช...</string>
+    <string name="hashing_completed">การแฮชเสร็จสิ้น</string>
+    <string name="stop">หยุด</string>
+    <string name="start">เริ่ม</string>
+    <string name="bit64">64-บิต</string>
+    <string name="bit256">256-บิต</string>
+    <string name="bit512">512-บิต</string>
+    <string name="update_language">อัปเดตภาษา</string>
+
+</resources>

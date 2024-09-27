@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">Bersyon %1$s</string>
+    <string name="multihasher_by">Multihasher ni Anthro Teacher</string>
+    <string name="enter_intention">Ipasok ang Layunin para sa Multi-Hash</string>
+    <string name="hash_levels">Mga Antas ng Hash [1-1000]: </string>
+    <string name="reps_per_hash">Mga Ulit sa bawat Antas ng Hash [1-100k]: </string>
+    <string name="hash_copied">Naka-copy ang Hash sa clipboard</string>
+    <string name="load_file">Mag-load ng File</string>
+    <string name="hashing_stopped">Huminto ang hashing.</string>
+    <string name="calculating_hash">Binibilang ang Hash...</string>
+    <string name="hashing_completed">Nakumpleto ang hashing.</string>
+    <string name="stop">Itigil</string>
+    <string name="start">Simulan</string>
+    <string name="bit64">64-Bit</string>
+    <string name="bit256">256-Bit</string>
+    <string name="bit512">512-Bit</string>
+    <string name="update_language">I-update ang Wika</string>
+
+</resources>

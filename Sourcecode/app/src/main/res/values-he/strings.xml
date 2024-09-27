@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">גרסה %1$s</string>
+    <string name="multihasher_by">מולטי-האשר על ידי Anthro Teacher</string>
+    <string name="enter_intention">הזן כוונה למולטי-האשר</string>
+    <string name="hash_levels">רמות האש [1-1000]: </string>
+    <string name="reps_per_hash">חזרות לכל רמת האש [1-100k]: </string>
+    <string name="hash_copied">האשר הועתק ללוח</string>
+    <string name="load_file">טען קובץ</string>
+    <string name="hashing_stopped">ההאשה נעצרה.</string>
+    <string name="calculating_hash">מחפש האשר...</string>
+    <string name="hashing_completed">ההאשה הושלמה.</string>
+    <string name="stop">עצר</string>
+    <string name="start">התחל</string>
+    <string name="bit64">64-ביט</string>
+    <string name="bit256">256-ביט</string>
+    <string name="bit512">512-ביט</string>
+    <string name="update_language">עדכן שפה</string>
+
+
+</resources>

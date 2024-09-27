@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">Versi %1$s</string>
+    <string name="multihasher_by">Multihasher oleh Anthro Teacher</string>
+    <string name="enter_intention">Masukkan Niat untuk Multi-Hash</string>
+    <string name="hash_levels">Tahap Hash [1-1000]: </string>
+    <string name="reps_per_hash">Ulangan bagi Tahap Hash [1-100k]: </string>
+    <string name="hash_copied">Hash telah disalin ke papan keratan</string>
+    <string name="load_file">Muat Fail</string>
+    <string name="hashing_stopped">Penghentian hashing.</string>
+    <string name="calculating_hash">Mengira Hash...</string>
+    <string name="hashing_completed">Penghujung hashing.</string>
+    <string name="stop">Henti</string>
+    <string name="start">Mula</string>
+    <string name="bit64">64-Bit</string>
+    <string name="bit256">256-Bit</string>
+    <string name="bit512">512-Bit</string>
+    <string name="update_language">Kemas kini Bahasa</string>
+
+</resources>

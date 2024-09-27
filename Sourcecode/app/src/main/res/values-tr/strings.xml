@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">Sürüm %1$s</string>
+    <string name="multihasher_by">Multihasher by Anthro Teacher</string>
+    <string name="enter_intention">Çoklu Hash için Niyeti Girin</string>
+    <string name="hash_levels">Hash Seviyeleri [1-1000]: </string>
+    <string name="reps_per_hash">Hash Seviyesi Başına Tekrar Sayısı [1-100k]: </string>
+    <string name="hash_copied">Hash panoya kopyalandı</string>
+    <string name="load_file">Dosya Yükle</string>
+    <string name="hashing_stopped">Hashing durduruldu.</string>
+    <string name="calculating_hash">Hash Hesaplanıyor...</string>
+    <string name="hashing_completed">Hashing tamamlandı.</string>
+    <string name="stop">Durdur</string>
+    <string name="start">Başlat</string>
+    <string name="bit64">64-Bit</string>
+    <string name="bit256">256-Bit</string>
+    <string name="bit512">512-Bit</string>
+    <string name="update_language">Dili Güncelle</string>
+
+</resources>

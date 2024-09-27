@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/Users/aryanraj/Documents/Projects/multihasher/multihasher-android/Sourcecode/sha3/src/main/cpp/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Users/aryanraj/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/aryanraj/Documents/Projects/multihasher/multihasher-android/Sourcecode/sha3/.cxx/Debug/2j4f4j5f/x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Users/aryanraj/Library/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/aryanraj/Documents/Projects/multihasher/multihasher-android/Sourcecode/sha3/.cxx/Debug/2j4f4j5f/x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "sha3::@6890427a1f51a3e7e1df": {
+      "artifactName": "sha3",
+      "abi": "x86_64",
+      "output": "/Users/aryanraj/Documents/Projects/multihasher/multihasher-android/Sourcecode/sha3/build/intermediates/cxx/Debug/2j4f4j5f/obj/x86_64/libsha3.so",
+      "runtimeFiles": []
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">সংস্করণ %1$s</string>
+    <string name="multihasher_by">মাল্টিহ্যাশার Anthro Teacher দ্বারা</string>
+    <string name="enter_intention">মাল্টি-হ্যাশের জন্য উদ্দেশ্য লিখুন</string>
+    <string name="hash_levels">হ্যাশ স্তর [1-1000]: </string>
+    <string name="reps_per_hash">প্রতি হ্যাশ স্তরের জন্য পুনরাবৃত্তি [1-100k]: </string>
+    <string name="hash_copied">হ্যাশ ক্লিপবোর্ডে কপি করা হয়েছে</string>
+    <string name="load_file">ফাইল লোড করুন</string>
+    <string name="hashing_stopped">হ্যাশিং বন্ধ হয়েছে।</string>
+    <string name="calculating_hash">হ্যাশ গণনা করা হচ্ছে...</string>
+    <string name="hashing_completed">হ্যাশিং সম্পন্ন হয়েছে।</string>
+    <string name="stop">বন্ধ করুন</string>
+    <string name="start">শুরু করুন</string>
+    <string name="bit64">64-বিট</string>
+    <string name="bit256">256-বিট</string>
+    <string name="bit512">512-বিট</string>
+    <string name="update_language">ভাষা আপডেট করুন</string>
+
+</resources>

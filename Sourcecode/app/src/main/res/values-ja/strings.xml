@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">バージョン %1$s</string>
+    <string name="multihasher_by">Anthro Teacherによるマルチハッシャー</string>
+    <string name="enter_intention">マルチハッシュの意図を入力してください</string>
+    <string name="hash_levels">ハッシュレベル [1-1000]: </string>
+    <string name="reps_per_hash">ハッシュレベルごとのリップ [1-100k]: </string>
+    <string name="hash_copied">ハッシュがクリップボードにコピーされました</string>
+    <string name="load_file">ファイルを読み込む</string>
+    <string name="hashing_stopped">ハッシュ処理が停止しました。</string>
+    <string name="calculating_hash">ハッシュを計算中...</string>
+    <string name="hashing_completed">ハッシュ処理が完了しました。</string>
+    <string name="stop">停止</string>
+    <string name="start">開始</string>
+    <string name="bit64">64ビット</string>
+    <string name="bit256">256ビット</string>
+    <string name="bit512">512ビット</string>
+    <string name="update_language">言語を更新</string>
+
+</resources>

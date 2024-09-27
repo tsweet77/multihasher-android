@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Multihasher</string>
+
+    <string name="version">Toleo %1$s</string>
+    <string name="multihasher_by">Multihasher na Anthro Teacher</string>
+    <string name="enter_intention">Ingiza Nia ya Multi-Hash</string>
+    <string name="hash_levels">Viwango vya Hash [1-1000]: </string>
+    <string name="reps_per_hash">Kurudia kwa Kiwango cha Hash [1-100k]: </string>
+    <string name="hash_copied">Hash imekopi kwenye clipboard</string>
+    <string name="load_file">Pakua Faili</string>
+    <string name="hashing_stopped">Hashing imekoma.</string>
+    <string name="calculating_hash">Inakadiria Hash...</string>
+    <string name="hashing_completed">Hashing imekamilika.</string>
+    <string name="stop">Simamisha</string>
+    <string name="start">Anza</string>
+    <string name="bit64">64-Bit</string>
+    <string name="bit256">256-Bit</string>
+    <string name="bit512">512-Bit</string>
+    <string name="update_language">Sasisha Lugha</string>
+
+</resources>

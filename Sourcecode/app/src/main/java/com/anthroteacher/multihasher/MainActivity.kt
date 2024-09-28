@@ -510,10 +510,13 @@ fun sha64(input: String): String {
 }
 
 fun validateAndParseInput(input: String, maxValue: Int): Int {
+    if (input.isEmpty()) {
+        return 1
+    }
     val normalizedInput = input.trim().toUpperCase(Locale.ROOT)
     val value = when {
-        normalizedInput.endsWith("K") -> (normalizedInput.dropLast(1).toDouble() * 1000).toInt()
-        normalizedInput.endsWith("M") -> (normalizedInput.dropLast(1).toDouble() * 1000000).toInt()
+        normalizedInput.endsWith("K") && normalizedInput.dropLast(1).isNotEmpty() -> (normalizedInput.dropLast(1).toDouble() * 1000).toInt()
+        normalizedInput.endsWith("M") && normalizedInput.dropLast(1).isNotEmpty() -> (normalizedInput.dropLast(1).toDouble() * 1000000).toInt()
         else -> input.toIntOrNull() ?: 1
     }
     return value.coerceAtMost(maxValue)

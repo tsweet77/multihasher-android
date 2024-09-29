@@ -19,4 +19,9 @@
     <string name="bit512">512-Bit</string>
     <string name="update_language">Sasisha Lugha</string>
 
+    <string name="intention">Nia</string>
+    <string name="hash_results">Matokeo ya Hash</string>
+    <string name="select_language">Chagua Lugha</string>
+    <string name="dropdown_icon">Ikoni ya kushuka</string>
+
 </resources>

@@ -19,4 +19,9 @@
     <string name="bit512">512-บิต</string>
     <string name="update_language">อัปเดตภาษา</string>
 
+    <string name="intention">เจตนา</string>
+    <string name="hash_results">ผลลัพธ์แฮช</string>
+    <string name="select_language">เลือกภาษา</string>
+    <string name="dropdown_icon">ไอคอนแบบเลื่อนลง</string>
+
 </resources>

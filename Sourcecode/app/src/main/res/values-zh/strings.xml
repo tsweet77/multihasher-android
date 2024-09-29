@@ -19,4 +19,9 @@
     <string name="bit512">512位</string>
     <string name="update_language">更新语言</string>
 
+    <string name="intention">意图</string>
+    <string name="hash_results">哈希结果</string>
+    <string name="select_language">选择语言</string>
+    <string name="dropdown_icon">下拉图标</string>
+
 </resources>

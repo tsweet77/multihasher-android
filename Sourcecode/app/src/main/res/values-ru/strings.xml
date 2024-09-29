@@ -19,4 +19,9 @@
     <string name="bit512">512-бит</string>
     <string name="update_language">Обновить язык</string>
 
+    <string name="intention">Намерение</string>
+    <string name="hash_results">Результаты хеша</string>
+    <string name="select_language">Выбрать язык</string>
+    <string name="dropdown_icon">Значок выпадающего меню</string>
+
 </resources>

@@ -19,4 +19,10 @@
     <string name="bit512">512-बिट</string>
     <string name="update_language">भाषां अद्यतनय</string>
 
+
+    <string name="intention">अभिप्रायः</string>
+    <string name="hash_results">ह्याश परिणामः</string>
+    <string name="select_language">भाषां चयनं कुर्वन्तु</string>
+    <string name="dropdown_icon">ड्रॉपडाउन प्रतीकं</string>
+
 </resources>

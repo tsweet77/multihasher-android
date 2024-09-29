@@ -20,4 +20,8 @@
     <string name="update_language">עדכן שפה</string>
 
 
+    <string name="intention">כוונה</string>
+    <string name="hash_results">תוצאות Hash</string>
+    <string name="select_language">בחר שפה</string>
+    <string name="dropdown_icon">אייקון תפריט נפתח</string>
 </resources>

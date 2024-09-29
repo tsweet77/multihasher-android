@@ -40,6 +40,8 @@ import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -172,10 +174,12 @@ fun MultiHasherApp(
             label = { Text(stringResource(R.string.enter_intention)) },
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 120.dp), // Set height to show approximately 5 lines
+                .heightIn(min = 120.dp)
+                .semantics { contentDescription = context.getString(R.string.intention) }, // Set height to show approximately 5 lines
             maxLines = Int.MAX_VALUE, // Allow unlimited lines
             enabled = !disableAllInputs,
-            singleLine = false
+            singleLine = false,
+
         )
 
         // Hash Levels Box with Validation
@@ -220,6 +224,7 @@ fun MultiHasherApp(
         Text(
             text = hashDisplay,
             fontSize = 14.sp,
+
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.LightGray)
@@ -244,7 +249,8 @@ fun MultiHasherApp(
                             )
                             .show()
                     }
-                },
+                }
+                .semantics { contentDescription = context.getString(R.string.hash_results) },
             maxLines = Int.MAX_VALUE // Allows wrapping if the hash is too long
         )
 
@@ -357,7 +363,7 @@ fun LanguageDropdown(
         TextField(
             readOnly = true,
             enabled = !disableAllInputs,
-            value = languages.find { it.code == selectedLanguage }?.displayName ?: "Select Language",
+            value = languages.find { it.code == selectedLanguage }?.displayName ?: stringResource(R.string.select_language),
             onValueChange = {},
             modifier = Modifier
                 .fillMaxWidth()
@@ -370,7 +376,7 @@ fun LanguageDropdown(
             trailingIcon = {
                 Icon(
                     imageVector = Icons.Filled.ArrowDropDown,
-                    contentDescription = "Dropdown Icon"
+                    contentDescription = stringResource(R.string.dropdown_icon)
                 )
             },
         )

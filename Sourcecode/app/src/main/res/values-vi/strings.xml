@@ -19,4 +19,9 @@
     <string name="bit512">512-Bit</string>
     <string name="update_language">Cập nhật ngôn ngữ</string>
 
+    <string name="intention">Ý định</string>
+    <string name="hash_results">Kết quả Hash</string>
+    <string name="select_language">Chọn Ngôn ngữ</string>
+    <string name="dropdown_icon">Biểu tượng thả xuống</string>
+
 </resources>

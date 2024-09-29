@@ -19,4 +19,9 @@
     <string name="bit512">512-Bit</string>
     <string name="update_language">Kemas kini Bahasa</string>
 
+    <string name="intention">Niat</string>
+    <string name="hash_results">Keputusan Hash</string>
+    <string name="select_language">Pilih Bahasa</string>
+    <string name="dropdown_icon">Ikon Dropdown</string>
+
 </resources>

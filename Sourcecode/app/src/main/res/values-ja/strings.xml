@@ -19,4 +19,9 @@
     <string name="bit512">512ビット</string>
     <string name="update_language">言語を更新</string>
 
+    <string name="intention">意図</string>
+    <string name="hash_results">ハッシュ結果</string>
+    <string name="select_language">言語を選択</string>
+    <string name="dropdown_icon">ドロップダウンアイコン</string>
+
 </resources>

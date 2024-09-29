@@ -17,4 +17,9 @@
     <string name="bit256">256-Bit</string>
     <string name="bit512">512-Bit</string>
     <string name="update_language">Update Language</string>
+
+    <string name="intention">Intention</string>
+    <string name="hash_results">Hash Results</string>
+    <string name="select_language">Select Language</string>
+    <string name="dropdown_icon">Dropdown Icon</string>
 </resources>

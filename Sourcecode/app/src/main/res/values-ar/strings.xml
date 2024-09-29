@@ -19,4 +19,9 @@
     <string name="bit512">512-بت</string>
     <string name="update_language">تحديث اللغة</string>
 
+    <string name="intention">نية</string>
+    <string name="hash_results">نتائج التجزئة</string>
+    <string name="select_language">اختر اللغة</string>
+    <string name="dropdown_icon">أيقونة القائمة المنسدلة</string>
+
 </resources>

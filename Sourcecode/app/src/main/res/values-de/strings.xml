@@ -19,4 +19,9 @@
     <string name="bit512">512-Bit</string>
     <string name="update_language">Sprache aktualisieren</string>
 
+    <string name="intention">Absicht</string>
+    <string name="hash_results">Hash-Ergebnisse</string>
+    <string name="select_language">Sprache auswählen</string>
+    <string name="dropdown_icon">Dropdown-Symbol</string>
+
 </resources>

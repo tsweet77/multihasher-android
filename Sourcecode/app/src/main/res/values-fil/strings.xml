@@ -19,4 +19,8 @@
     <string name="bit512">512-Bit</string>
     <string name="update_language">I-update ang Wika</string>
 
+    <string name="intention">Layunin</string>
+    <string name="hash_results">Mga Resulta ng Hash</string>
+    <string name="select_language">Piliin ang Wika</string>
+    <string name="dropdown_icon">Dropdown Icon</string>
 </resources>

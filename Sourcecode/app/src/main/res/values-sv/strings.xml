@@ -19,4 +19,10 @@
     <string name="bit512">512-Bit</string>
     <string name="update_language">Uppdatera språk</string>
 
+
+    <string name="intention">Avsikt</string>
+    <string name="hash_results">Hash-resultat</string>
+    <string name="select_language">Välj språk</string>
+    <string name="dropdown_icon">Rullgardinsikon</string>
+
 </resources>

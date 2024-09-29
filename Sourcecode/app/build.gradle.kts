@@ -11,7 +11,7 @@ android {
         applicationId = "com.anthroteacher.multihasher"
         minSdk = 28
         targetSdk = 34
-        versionCode = 6
+        versionCode = 11
         versionName = "1.8"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

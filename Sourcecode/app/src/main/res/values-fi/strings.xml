@@ -19,4 +19,9 @@
     <string name="bit512">512-Bittiä</string>
     <string name="update_language">Päivitä kieli</string>
 
+    <string name="intention">Aikomus</string>
+    <string name="hash_results">Hash-tulokset</string>
+    <string name="select_language">Valitse kieli</string>
+    <string name="dropdown_icon">Pudotusvalikon kuvake</string>
+
 </resources>

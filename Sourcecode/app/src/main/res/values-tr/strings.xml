@@ -19,4 +19,9 @@
     <string name="bit512">512-Bit</string>
     <string name="update_language">Dili Güncelle</string>
 
+    <string name="intention">Niyet</string>
+    <string name="hash_results">Hash Sonuçları</string>
+    <string name="select_language">Dili Seç</string>
+    <string name="dropdown_icon">Açılır Simge</string>
+
 </resources>

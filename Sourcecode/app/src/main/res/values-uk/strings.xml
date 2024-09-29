@@ -19,4 +19,9 @@
     <string name="bit512">512-біт</string>
     <string name="update_language">Оновити мову</string>
 
+    <string name="intention">Намір</string>
+    <string name="hash_results">Результати хешу</string>
+    <string name="select_language">Вибрати мову</string>
+    <string name="dropdown_icon">Значок випадаючого списку</string>
+
 </resources>

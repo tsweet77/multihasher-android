@@ -19,4 +19,9 @@
     <string name="bit512">512-பிட்</string>
     <string name="update_language">மொழியை புதுப்பிக்கவும்</string>
 
+    <string name="intention">நோக்கம்</string>
+    <string name="hash_results">ஹாஷ் முடிவுகள்</string>
+    <string name="select_language">மொழியைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="dropdown_icon">வீழ்ச்சி ஐகான்</string>
+
 </resources>

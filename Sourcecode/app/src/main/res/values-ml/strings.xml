@@ -19,4 +19,9 @@
     <string name="bit512">512-ബിറ്റ്</string>
     <string name="update_language">ഭാഷ അപ്ഡേറ്റ് ചെയ്യുക</string>
 
+    <string name="intention">ഇരാദം</string>
+    <string name="hash_results">ഹാഷ് ഫലങ്ങൾ</string>
+    <string name="select_language">ഭാഷ തിരഞ്ഞെടുക്കുക</string>
+    <string name="dropdown_icon">ഡ്രോപ്പ്ഡൗൺ ഐക്കൺ</string>
+
 </resources>

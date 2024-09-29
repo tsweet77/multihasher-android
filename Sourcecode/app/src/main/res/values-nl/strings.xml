@@ -19,4 +19,9 @@
     <string name="bit512">512-Bit</string>
     <string name="update_language">Taal bijwerken</string>
 
+    <string name="intention">Intentie</string>
+    <string name="hash_results">Hash-resultaten</string>
+    <string name="select_language">Selecteer taal</string>
+    <string name="dropdown_icon">Dropdown-pictogram</string>
+
 </resources>

@@ -1,9 +1,6 @@
 package com.anthroteacher.multihasher
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -15,22 +12,10 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MenuItemColors
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,14 +24,13 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.anthroteacher.multihasher.ui.theme.MultihasherTheme
 import kotlinx.coroutines.*
 //import kotlinx.coroutines.flow.internal.NoOpContinuation.context
 import java.math.BigInteger
@@ -55,66 +39,20 @@ import java.util.Locale
 //import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 import com.anthroteacher.sha3.NativeLib;
 
-const val VERSION = "1.8"
+const val VERSION = "Version 1.9"
 
 class MainActivity : ComponentActivity() {
-    private lateinit var sharedPreferences: SharedPreferences
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        sharedPreferences = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
-
         setContent {
-            MultihasherTheme {
-                MultiHasherApp(
-                    currentLocale = sharedPreferences.getString("Language", "en") ?: "en",
-                    onLanguageChange = { newLocale ->
-                        saveLanguageToPreferences(newLocale)
-                        setLocale(this, newLocale) // Apply the new locale
-                        recreate() // Recreate the activity to reflect changes
-                    },
-                )
-            }
+            MultiHasherApp()
         }
-    }
-
-    private fun loadLocale() {
-        val savedLanguage = sharedPreferences.getString("Language", "en") ?: "en"
-        setLocale(this, savedLanguage) // Apply the saved or default locale
-    }
-
-    // Function to save the selected language to SharedPreferences
-    private fun saveLanguageToPreferences(languageCode: String) {
-        sharedPreferences.edit().putString("Language", languageCode).apply()
-    }
-
-    // Function to set the app's locale
-    private fun setLocale(context: Context, languageCode: String) {
-        val locale = Locale(languageCode)
-        Locale.setDefault(locale)
-
-        val resources = context.resources
-        val config = resources.configuration
-        config.setLocale(locale)
-        config.setLayoutDirection(locale)
-
-        context.createConfigurationContext(config)
-        resources.updateConfiguration(config, resources.displayMetrics)
-    }
-
-    // Apply the locale whenever the activity is resumed
-    override fun onResume() {
-        super.onResume()
-        loadLocale() // Reload and apply the locale when the activity resumes
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MultiHasherApp(
-    currentLocale: String,
-    onLanguageChange: (String) -> Unit,
-) {
+fun MultiHasherApp() {
     var intentionText by remember { mutableStateOf(TextFieldValue("")) }
     var numHashLevels by remember { mutableStateOf("1") }
     var numRepsPerHashLevel by remember { mutableStateOf("1") }
@@ -128,8 +66,6 @@ fun MultiHasherApp(
     val coroutineScope = rememberCoroutineScope()
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
-
-    var selectedLanguage by remember { mutableStateOf(currentLocale) }
 
     val isStartButtonEnabled = intentionText.text.isNotBlank() &&
             numHashLevels.isNotBlank() && numRepsPerHashLevel.isNotBlank()
@@ -148,8 +84,7 @@ fun MultiHasherApp(
         verticalArrangement = Arrangement.spacedBy(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        
-        Text(stringResource(R.string.multihasher_by), fontSize = 20.sp)
+        Text("Multihasher by Anthro Teacher", fontSize = 20.sp)
 
         // Correct placement: File picker launcher inside a @Composable function
         val filePickerLauncher = rememberLauncherForActivityResult(
@@ -170,17 +105,30 @@ fun MultiHasherApp(
         // Multiline Intention Box with 5 lines shown but allowing unlimited input
         OutlinedTextField(
             value = intentionText,
-            onValueChange = { intentionText = it },
-            label = { Text(stringResource(R.string.enter_intention)) },
+            onValueChange = { newValue ->
+                // Limit pasted text to the first 10,000 characters
+                intentionText = if (newValue.text.length > 10000) {
+                    TextFieldValue(newValue.text.take(10000))
+                } else {
+                    newValue
+                }
+            },
+            label = { Text("Enter Intention to Multihash") },
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 120.dp)
-                .semantics { contentDescription = context.getString(R.string.intention) }, // Set height to show approximately 5 lines
-            maxLines = Int.MAX_VALUE, // Allow unlimited lines
+                .heightIn(min = 120.dp, max = 120.dp) // Set minimum and maximum height
+                .background(Color.White), // Optional: Set background color to differentiate the text field
+            maxLines = Int.MAX_VALUE, // Allow unlimited lines in terms of input
             enabled = !disableAllInputs,
             singleLine = false,
-
+            textStyle = LocalTextStyle.current.copy(lineHeight = 20.sp), // Optional: Adjust line height
+            isError = false, // Optional: Set error state if necessary
+            colors = TextFieldDefaults.outlinedTextFieldColors(), // Use default colors or customize
+            visualTransformation = VisualTransformation.None, // Use plain text
+            keyboardOptions = KeyboardOptions.Default, // Use default keyboard options
+            keyboardActions = KeyboardActions.Default // Use default keyboard actions
         )
+
 
         // Hash Levels Box with Validation
         OutlinedTextField(
@@ -189,7 +137,7 @@ fun MultiHasherApp(
                 val sanitizedInput = it.filter { char -> char.isDigit() }.take(4)
                 numHashLevels = sanitizedInput.takeIf { input -> input.toIntOrNull() in 1..1000 } ?: numHashLevels
             },
-            label = { Text(stringResource(R.string.hash_levels)) },
+            label = { Text("Hash Levels [1-1000]: ") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
             enabled = !disableAllInputs
@@ -208,7 +156,7 @@ fun MultiHasherApp(
                 val validatedInput = validateAndParseInput(sanitizedInput, 100000)
                 numRepsPerHashLevel = validatedInput.toString()
             },
-            label = { Text(stringResource(R.string.reps_per_hash)) },
+            label = { Text("Reps per Hash Level [1-100k]: ") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth(),
             enabled = !disableAllInputs
@@ -224,7 +172,6 @@ fun MultiHasherApp(
         Text(
             text = hashDisplay,
             fontSize = 14.sp,
-
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.LightGray)
@@ -236,23 +183,16 @@ fun MultiHasherApp(
                 ) {
                     focusManager.clearFocus() // Hide keyboard
                     if (hashDisplay.isNotBlank()) { // Only copy if there is a value
-                        clipboardManager.setText(
-                            androidx.compose.ui.text.AnnotatedString(
-                                hashDisplay
-                            )
-                        )
-                        Toast
-                            .makeText(
-                                context,
-                                context.getString(R.string.hash_copied),
-                                Toast.LENGTH_SHORT
-                            )
-                            .show()
+                        clipboardManager.setText(androidx.compose.ui.text.AnnotatedString(hashDisplay))
+                        Toast.makeText(context, "Hash copied to clipboard", Toast.LENGTH_SHORT).show()
                     }
                 }
-                .semantics { contentDescription = context.getString(R.string.hash_results) },
+                .semantics {
+                    contentDescription = "Hashing Completed. Copied to Clipboard." // Description for screen readers
+                },
             maxLines = Int.MAX_VALUE // Allows wrapping if the hash is too long
         )
+
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -272,7 +212,7 @@ fun MultiHasherApp(
                     .weight(1f) // Makes the button take equal width
                     .height(48.dp)
             ) {
-                Text(stringResource(R.string.load_file))
+                Text("Load File")
             }
 
             // Start Button on the right
@@ -281,10 +221,10 @@ fun MultiHasherApp(
                     if (isHashing) {
                         isHashing = false
                         hashingJob?.cancel()
-                        statusLabel = context.getString(R.string.hashing_stopped)
+                        statusLabel = "Hashing stopped."
                     } else {
                         isHashing = true
-                        statusLabel = context.getString(R.string.calculating_hash)
+                        statusLabel = "Calculating Hash..."
                         hashingJob = coroutineScope.launch {
                             startHashing(
                                 intentionText.text,
@@ -295,7 +235,7 @@ fun MultiHasherApp(
                                 onUpdateStatusLabel = { statusLabel = it },
                                 onComplete = {
                                     isHashing = false
-                                    statusLabel = context.getString(R.string.hashing_completed)
+                                    statusLabel = "Hashing completed."
                                 }
                             )
                         }
@@ -304,100 +244,20 @@ fun MultiHasherApp(
                 enabled = isStartButtonEnabled,
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (isHashing) Color.Red else Color.Green,
-                    contentColor = Color.White
+                    contentColor = Color.Black
                 ),
                 modifier = Modifier
                     .weight(1f) // Makes the button take equal width
                     .height(48.dp)
             ) {
-                Text(if (isHashing) context.getString(R.string.stop) else context.getString(R.string.start))
+                Text(if (isHashing) "Stop" else "Start")
             }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
-        LanguageDropdown(
-            currentLocale = selectedLanguage,
-            onLanguageSelected = { newLanguage ->
-                selectedLanguage = newLanguage
-            },
-            disableAllInputs = disableAllInputs
-        )
-        Button(
-            onClick = {
-                onLanguageChange(selectedLanguage)  // Use selectedLanguage instead of currentLocale
-            },
-            enabled = !disableAllInputs,
-            modifier = Modifier
-                .padding(8.dp)
-                .align(Alignment.CenterHorizontally)
-        ) {
-            Text(stringResource(R.string.update_language))
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
         // Add this line to display the version below the "Start" button
-        Text(stringResource(R.string.version,VERSION), fontSize = 12.sp)
+        Text(VERSION, fontSize = 12.sp)
     }
 }
-
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun LanguageDropdown(
-    currentLocale: String,
-    onLanguageSelected: (String) -> Unit, // Renamed to onLanguageSelected for clarity
-    disableAllInputs:Boolean
-) {
-    var expanded by remember { mutableStateOf(false) }
-    var selectedLanguage by remember { mutableStateOf(currentLocale) }
-
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = {
-            if(!disableAllInputs){
-                expanded = !expanded
-            }else{
-                expanded=false;
-            } },
-    ) {
-        TextField(
-            readOnly = true,
-            enabled = !disableAllInputs,
-            value = languages.find { it.code == selectedLanguage }?.displayName ?: stringResource(R.string.select_language),
-            onValueChange = {},
-            modifier = Modifier
-                .fillMaxWidth()
-                .menuAnchor(),
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color.Transparent, // Remove underline when focused
-                unfocusedIndicatorColor = Color.Transparent,
-                disabledIndicatorColor = Color.Transparent
-            ),
-            trailingIcon = {
-                Icon(
-                    imageVector = Icons.Filled.ArrowDropDown,
-                    contentDescription = stringResource(R.string.dropdown_icon)
-                )
-            },
-        )
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
-            languages.forEach { language ->
-                DropdownMenuItem(
-                    text = { Text(language.displayName) },
-                    onClick = {
-                        selectedLanguage = language.code
-                        expanded = false
-                        onLanguageSelected(selectedLanguage) // Pass the selected language up
-                    }
-                )
-            }
-        }
-    }
-}
-
 
 @Composable
 fun EncodingDropdownMenu(
@@ -406,12 +266,6 @@ fun EncodingDropdownMenu(
     enabled: Boolean
 ) {
     var expanded by remember { mutableStateOf(false) }
-    data class Option(val title: String, val value: String)
-    var options = listOf(
-        Option(stringResource(R.string.bit64),"64-Bit"),
-        Option(stringResource(R.string.bit256),"256-Bit"),
-        Option(stringResource(R.string.bit512),"512-Bit"),
-    )
 
     Box {
         Button(
@@ -419,18 +273,18 @@ fun EncodingDropdownMenu(
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled
         ) {
-            Text(text =  if (selectedOption == "64-Bit") options[0].title else if (selectedOption == "256-Bit") options[1].title else if (selectedOption == "512-Bit") options[2].title else options[3].title )
+            Text(text = selectedOption)
         }
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-           options.forEach { option ->
+            listOf("64-Bit", "256-Bit", "512-Bit").forEach { option ->
                 DropdownMenuItem(
-                    text = {Text(option.value)},
+                    text = { Text(option) },
                     onClick = {
                         expanded = false
-                        onOptionSelected(option.value)
+                        onOptionSelected(option)
                     }
                 )
             }
@@ -516,14 +370,24 @@ fun sha64(input: String): String {
 }
 
 fun validateAndParseInput(input: String, maxValue: Int): Int {
-    if (input.isEmpty()) {
-        return 1
-    }
+//    val normalizedInput = input.trim().toUpperCase(Locale.ROOT)
+//    val value = when {
+//        normalizedInput.endsWith("K") -> (normalizedInput.dropLast(1).toDouble() * 1000).toInt()
+//        normalizedInput.endsWith("M") -> (normalizedInput.dropLast(1).toDouble() * 1000000).toInt()
+//        else -> input.toIntOrNull() ?: 1
+//    }
+//    return value.coerceAtMost(maxValue)
+
     val normalizedInput = input.trim().toUpperCase(Locale.ROOT)
-    val value = when {
-        normalizedInput.endsWith("K") && normalizedInput.dropLast(1).isNotEmpty() -> (normalizedInput.dropLast(1).toDouble() * 1000).toInt()
-        normalizedInput.endsWith("M") && normalizedInput.dropLast(1).isNotEmpty() -> (normalizedInput.dropLast(1).toDouble() * 1000000).toInt()
-        else -> input.toIntOrNull() ?: 1
+    return try {
+        val value = when {
+            normalizedInput.endsWith("K") -> (normalizedInput.dropLast(1).toDouble() * 1000).toInt()
+            normalizedInput.endsWith("M") -> (normalizedInput.dropLast(1).toDouble() * 1000000).toInt()
+            else -> input.toIntOrNull() ?: 1
+        }
+        value.coerceAtMost(maxValue)
+    } catch (e: Exception) {
+        // Handle the exception (e.g., log it, return a default value, etc.)
+        1 // Default value in case of an error
     }
-    return value.coerceAtMost(maxValue)
 }

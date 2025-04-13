@@ -39,7 +39,7 @@ import java.util.Locale
 //import kotlin.coroutines.jvm.internal.CompletedContinuation.context
 import com.anthroteacher.sha3.NativeLib;
 
-const val VERSION = "Version 1.9"
+const val VERSION = "Version 1.20"
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

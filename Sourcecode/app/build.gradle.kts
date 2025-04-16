@@ -11,8 +11,8 @@ android {
         applicationId = "com.anthroteacher.multihasher"
         minSdk = 28
         targetSdk = 34
-        versionCode = 20
-        versionName = "1.20"
+        versionCode = 30
+        versionName = "1.30"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

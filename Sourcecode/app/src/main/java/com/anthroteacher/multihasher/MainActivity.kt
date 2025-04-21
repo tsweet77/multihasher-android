@@ -6,388 +6,347 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+// import androidx.compose.foundation.clickable // No longer needed on the Text
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.MutableInteractionSource // Still used elsewhere maybe
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ContentCopy // Import for Copy Icon
+import androidx.compose.material.icons.filled.FolderOpen
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Stop
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.*
-//import kotlinx.coroutines.flow.internal.NoOpContinuation.context
-import java.math.BigInteger
-import java.security.MessageDigest
-import java.util.Locale
-//import kotlin.coroutines.jvm.internal.CompletedContinuation.context
-import com.anthroteacher.sha3.NativeLib;
-
-const val VERSION = "Version 1.30"
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.anthroteacher.multihasher.ui.theme.MultihasherTheme // Import your app theme
 
 class MainActivity : ComponentActivity() {
+
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MultiHasherApp()
+            MultihasherTheme { // Apply Material 3 Theme
+                MultihasherApp(viewModel = viewModel)
+            }
         }
     }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MultiHasherApp() {
-    var intentionText by remember { mutableStateOf(TextFieldValue("")) }
-    var numHashLevels by remember { mutableStateOf("1") }
-    var numRepsPerHashLevel by remember { mutableStateOf("1") }
-    var encodingLevel by remember { mutableStateOf("512-Bit") }
-    var hashDisplay by remember { mutableStateOf("") }
-    var statusLabel by remember { mutableStateOf("") }
-    var isHashing by remember { mutableStateOf(false) }
-    var hashingJob: Job? by remember { mutableStateOf(null) }
-    val clipboardManager = LocalClipboardManager.current
+fun MultihasherApp(viewModel: MainViewModel) {
+
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle() // Observe state
     val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
+    val clipboardManager = LocalClipboardManager.current
     val focusManager = LocalFocusManager.current
     val scrollState = rememberScrollState()
 
-    val isStartButtonEnabled = intentionText.text.isNotBlank() &&
-            numHashLevels.isNotBlank() && numRepsPerHashLevel.isNotBlank()
+    // --- Resolve strings needed outside direct Composable calls ONCE ---
+    // (This avoids calling stringResource repeatedly inside loops or modifier chains)
+    val hashResultTextContentDesc = stringResource(R.string.cd_hash_result_text)
+    val copyHashContentDesc = stringResource(R.string.cd_copy_hash)
+    val placeholderHashText = stringResource(R.string.placeholder_hash_display)
+    val hashCopiedToastText = stringResource(R.string.toast_hash_copied)
+    val statusIdleText = stringResource(R.string.status_idle)
+    val loadFileContentDesc = stringResource(R.string.cd_load_file)
+    val startHashingContentDesc = stringResource(R.string.cd_start_hashing)
+    val stopHashingContentDesc = stringResource(R.string.cd_stop_hashing)
+    val appTitleText = stringResource(R.string.app_name)
+    val intentionLabelText = stringResource(R.string.label_intention)
+    val hashLevelsLabelText = stringResource(R.string.label_hash_levels, AppConstants.MIN_HASH_LEVELS, AppConstants.MAX_HASH_LEVELS)
+    val repsLabelText = stringResource(R.string.label_reps_per_level, AppConstants.MIN_REPS_PER_LEVEL, AppConstants.MAX_REPS_PER_LEVEL / 1000)
+    val loadFileButtonText = stringResource(R.string.button_load_file)
+    val startButtonText = stringResource(R.string.button_start)
+    val stopButtonText = stringResource(R.string.button_stop)
 
-    val disableAllInputs = isHashing
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-            .background(Color.White)
-            .verticalScroll(scrollState)
-            .pointerInput(Unit) {
-                detectTapGestures(onTap = { focusManager.clearFocus() })
-            },
-        verticalArrangement = Arrangement.spacedBy(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text("Multihasher by Anthro Teacher", fontSize = 20.sp)
-
-        // Correct placement: File picker launcher inside a @Composable function
-        val filePickerLauncher = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.OpenDocument(),
-            onResult = { uri ->
-                uri?.let {
-                    val inputStream = context.contentResolver.openInputStream(it)
-                    inputStream?.let {
-                        val bytes = inputStream.readBytes()
-                        val hash = sha512(bytes.toString(Charsets.UTF_8))
-                        intentionText = TextFieldValue(intentionText.text + "\n" + hash)
-                        inputStream.close()
+    // File Picker Launcher
+    val filePickerLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.OpenDocument(),
+        onResult = { uri ->
+            uri?.let {
+                try {
+                    context.contentResolver.openInputStream(it)?.use { inputStream ->
+                        val fileContent = inputStream.readBytes().toString(Charsets.UTF_8)
+                        viewModel.processLoadedFileContent(fileContent)
                     }
+                    // Error Toast needs context but stringResource needs @Composable scope,
+                    // so construct the string here or pass context to VM (less ideal).
+                    // Best practice is usually to have the VM expose an error state/event
+                    // and let the Composable react to it. For simplicity here, we keep it.
+                } catch (e: Exception) {
+                    val errorMsg = context.getString(R.string.toast_error_reading_file, e.localizedMessage ?: "Unknown error")
+                    Toast.makeText(context, errorMsg, Toast.LENGTH_LONG).show()
                 }
-            }
-        )
-
-        // Multiline Intention Box with 5 lines shown but allowing unlimited input
-        OutlinedTextField(
-            value = intentionText,
-            onValueChange = { newValue ->
-                // Limit pasted text to the first 10,000 characters
-                intentionText = if (newValue.text.length > 10000) {
-                    TextFieldValue(newValue.text.take(10000))
-                } else {
-                    newValue
-                }
-            },
-            label = { Text("Enter Intention to Multihash") },
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 120.dp, max = 120.dp) // Set minimum and maximum height
-                .background(Color.White), // Optional: Set background color to differentiate the text field
-            maxLines = Int.MAX_VALUE, // Allow unlimited lines in terms of input
-            enabled = !disableAllInputs,
-            singleLine = false,
-            textStyle = LocalTextStyle.current.copy(lineHeight = 20.sp), // Optional: Adjust line height
-            isError = false, // Optional: Set error state if necessary
-            colors = TextFieldDefaults.outlinedTextFieldColors(), // Use default colors or customize
-            visualTransformation = VisualTransformation.None, // Use plain text
-            keyboardOptions = KeyboardOptions.Default, // Use default keyboard options
-            keyboardActions = KeyboardActions.Default // Use default keyboard actions
-        )
-
-
-        // Hash Levels Box with Validation
-        OutlinedTextField(
-            value = numHashLevels,
-            onValueChange = {
-                val sanitizedInput = it.filter { char -> char.isDigit() }.take(4)
-                numHashLevels = sanitizedInput.takeIf { input -> input.toIntOrNull() in 1..1000 } ?: numHashLevels
-            },
-            label = { Text("Hash Levels [1-1000]: ") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth(),
-            enabled = !disableAllInputs
-        )
-
-        // Repetitions Box with Validation
-        OutlinedTextField(
-            value = numRepsPerHashLevel,
-            onValueChange = {
-                val sanitizedInput = it
-                    .replace(Regex("[^0-9kKmM.]"), "")  // Allow only digits, a single period, and K/k/M/m suffix
-                    .replace(Regex("\\.(?=.*\\.)"), "")  // Allow only the first period
-                    .replace(Regex("(?<=[kKmM]).*"), "")  // Remove any characters after K/k/M/m suffix
-
-                // Parse and validate input, limiting to a maximum of 100,000
-                val validatedInput = validateAndParseInput(sanitizedInput, 100000)
-                numRepsPerHashLevel = validatedInput.toString()
-            },
-            label = { Text("Reps per Hash Level [1-100k]: ") },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            modifier = Modifier.fillMaxWidth(),
-            enabled = !disableAllInputs
-        )
-
-        // Encoding Level Dropdown Menu
-        EncodingDropdownMenu(
-            selectedOption = encodingLevel,
-            onOptionSelected = { encodingLevel = it },
-            enabled = !disableAllInputs
-        )
-
-        Text(
-            text = hashDisplay,
-            fontSize = 14.sp,
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(Color.LightGray)
-                .padding(8.dp)
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null,
-                    enabled = !disableAllInputs
-                ) {
-                    focusManager.clearFocus() // Hide keyboard
-                    if (hashDisplay.isNotBlank()) { // Only copy if there is a value
-                        clipboardManager.setText(androidx.compose.ui.text.AnnotatedString(hashDisplay))
-                        Toast.makeText(context, "Hash copied to clipboard", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                .semantics {
-                    contentDescription = "Hashing Completed. Copied to Clipboard." // Description for screen readers
-                },
-            maxLines = Int.MAX_VALUE // Allows wrapping if the hash is too long
-        )
-
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Text(statusLabel, fontSize = 16.sp)
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(8.dp) // Adds space between buttons
-        ) {
-            // Load File Button on the left
-            Button(
-                onClick = { filePickerLauncher.launch(arrayOf("*/*")) },
-                enabled = !disableAllInputs,
-                modifier = Modifier
-                    .weight(1f) // Makes the button take equal width
-                    .height(48.dp)
-            ) {
-                Text("Load File")
-            }
-
-            // Start Button on the right
-            Button(
-                onClick = {
-                    if (isHashing) {
-                        isHashing = false
-                        hashingJob?.cancel()
-                        statusLabel = "Hashing stopped."
-                    } else {
-                        isHashing = true
-                        statusLabel = "Calculating Hash..."
-                        hashingJob = coroutineScope.launch {
-                            startHashing(
-                                intentionText.text,
-                                numHashLevels,
-                                numRepsPerHashLevel,
-                                encodingLevel,
-                                onUpdateHashDisplay = { hashDisplay = it },
-                                onUpdateStatusLabel = { statusLabel = it },
-                                onComplete = {
-                                    isHashing = false
-                                    statusLabel = "Hashing completed."
-                                }
-                            )
-                        }
-                    }
-                },
-                enabled = isStartButtonEnabled,
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (isHashing) Color.Red else Color.Green,
-                    contentColor = Color.Black
-                ),
-                modifier = Modifier
-                    .weight(1f) // Makes the button take equal width
-                    .height(48.dp)
-            ) {
-                Text(if (isHashing) "Stop" else "Start")
             }
         }
+    )
 
-        // Add this line to display the version below the "Start" button
-        Text(VERSION, fontSize = 12.sp)
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text(appTitleText) }, // Use resolved string
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                )
+            )
+        },
+        modifier = Modifier.pointerInput(Unit) {
+            detectTapGestures(onTap = { focusManager.clearFocus() })
+        }
+    ) { paddingValues ->
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .padding(AppConstants.SCREEN_PADDING)
+                .verticalScroll(scrollState)
+                .background(MaterialTheme.colorScheme.background),
+            verticalArrangement = Arrangement.spacedBy(AppConstants.ITEM_SPACING),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+            // Intention Input
+            OutlinedTextField(
+                value = uiState.intentionText,
+                onValueChange = { viewModel.updateIntentionText(it) },
+                label = { Text(intentionLabelText) }, // Use resolved string
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(min = AppConstants.INTENTION_BOX_HEIGHT, max = AppConstants.INTENTION_BOX_HEIGHT),
+                maxLines = Int.MAX_VALUE,
+                enabled = !uiState.isHashing,
+                singleLine = false,
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            )
+
+            // Hash Levels Input
+            OutlinedTextField(
+                value = uiState.numHashLevels,
+                onValueChange = { viewModel.updateNumHashLevels(it) },
+                label = { Text(hashLevelsLabelText) }, // Use resolved string
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !uiState.isHashing,
+                singleLine = true,
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            )
+
+            // Repetitions Input
+            OutlinedTextField(
+                value = uiState.numRepsPerHashLevel,
+                onValueChange = { viewModel.updateNumRepsPerLevel(it) },
+                label = { Text(repsLabelText) }, // Use resolved string
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Ascii),
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !uiState.isHashing,
+                singleLine = true,
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = MaterialTheme.colorScheme.primary,
+                    unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            )
+
+            // Encoding Dropdown
+            EncodingDropdownMenu( // Assuming EncodingDropdownMenu is in the same file or has its own string resolution
+                selectedOption = uiState.encodingLevel,
+                options = AppConstants.ENCODING_OPTIONS,
+                onOptionSelected = { viewModel.updateEncodingLevel(it) },
+                enabled = !uiState.isHashing
+            )
+
+            // --- Hash Display Area with Copy Button ---
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                    .padding(start = AppConstants.HASH_DISPLAY_PADDING, end = AppConstants.HASH_DISPLAY_PADDING / 2),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = uiState.hashDisplay.ifBlank { placeholderHashText }, // Use resolved string
+                    fontSize = 14.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    maxLines = 5,
+                    lineHeight = 20.sp,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(vertical = AppConstants.HASH_DISPLAY_PADDING / 2)
+                        .semantics {
+                            contentDescription = hashResultTextContentDesc // Assign the resolved String variable
+                        }
+                )
+
+                Spacer(modifier = Modifier.width(AppConstants.BUTTON_SPACING / 2))
+
+                IconButton(
+                    onClick = {
+                        focusManager.clearFocus()
+                        clipboardManager.setText(androidx.compose.ui.text.AnnotatedString(uiState.hashDisplay))
+                        Toast.makeText(context, hashCopiedToastText, Toast.LENGTH_SHORT).show() // Use resolved string
+                    },
+                    enabled = uiState.hashDisplay.isNotBlank()
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.ContentCopy,
+                        contentDescription = copyHashContentDesc, // Use resolved string
+                        tint = if (uiState.hashDisplay.isNotBlank()) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+                    )
+                }
+            }
+            // --- End Hash Display Area ---
+
+
+            // Progress Indicator
+            if (uiState.isHashing) {
+                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+            } else {
+                Spacer(modifier = Modifier.height(4.dp))
+            }
+
+            // Status Label
+            Text(
+                text = uiState.statusLabel.ifBlank { statusIdleText } , // Use resolved string
+                fontSize = 16.sp,
+                color = if (uiState.statusLabel.contains("Error", ignoreCase = true)) MaterialTheme.colorScheme.error else LocalContentColor.current,
+                modifier = Modifier.padding(top = AppConstants.ITEM_SPACING / 2)
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            // Action Buttons Row
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(AppConstants.BUTTON_SPACING)
+            ) {
+                // Load File Button
+                Button(
+                    onClick = { filePickerLauncher.launch(arrayOf("*/*")) },
+                    enabled = !uiState.isHashing,
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(AppConstants.BUTTON_HEIGHT)
+                ) {
+                    Icon(Icons.Filled.FolderOpen, contentDescription = loadFileContentDesc) // Use resolved string
+                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                    Text(loadFileButtonText) // Use resolved string
+                }
+
+                // Start/Stop Button
+                Button(
+                    onClick = { viewModel.toggleHashing() },
+                    enabled = uiState.isStartEnabled || uiState.isHashing,
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (uiState.isHashing) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer,
+                        contentColor = if (uiState.isHashing) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onPrimaryContainer
+                    ),
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(AppConstants.BUTTON_HEIGHT)
+                ) {
+                    val icon = if (uiState.isHashing) Icons.Filled.Stop else Icons.Filled.PlayArrow
+                    // Use resolved strings for text and content description
+                    val text = if (uiState.isHashing) stopButtonText else startButtonText
+                    val cd = if (uiState.isHashing) stopHashingContentDesc else startHashingContentDesc
+
+                    Icon(icon, contentDescription = cd) // Use resolved string
+                    Spacer(Modifier.size(ButtonDefaults.IconSpacing))
+                    Text(text) // Use resolved string
+                }
+            }
+
+            // Version Text
+            Text(
+                AppConstants.VERSION,
+                fontSize = 12.sp,
+                color = MaterialTheme.colorScheme.outline,
+                modifier = Modifier.padding(top = AppConstants.ITEM_SPACING / 2)
+            )
+        }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EncodingDropdownMenu(
+fun EncodingDropdownMenu( // Make sure strings here are also resolved correctly if needed
     selectedOption: String,
+    options: List<String>,
     onOptionSelected: (String) -> Unit,
-    enabled: Boolean
+    enabled: Boolean,
+    modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
+    val encodingLabelText = stringResource(R.string.label_encoding) // Resolve string here
 
-    Box {
-        Button(
-            onClick = { expanded = true },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled
-        ) {
-            Text(text = selectedOption)
-        }
-        DropdownMenu(
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { if (enabled) expanded = !expanded },
+        modifier = modifier.fillMaxWidth()
+    ) {
+        OutlinedTextField(
+            value = selectedOption,
+            onValueChange = {},
+            readOnly = true,
+            label = { Text(encodingLabelText) }, // Use resolved string
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            modifier = Modifier
+                .menuAnchor()
+                .fillMaxWidth(),
+            enabled = enabled,
+            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                disabledBorderColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
+                disabledTextColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+                disabledLabelColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f),
+                disabledTrailingIconColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
+            )
+        )
+
+        ExposedDropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            listOf("64-Bit", "256-Bit", "512-Bit").forEach { option ->
+            options.forEach { option ->
+                // Create content description string dynamically or predefine if fixed options
+                val dropdownItemContentDesc = "Select $option encoding"
                 DropdownMenuItem(
                     text = { Text(option) },
                     onClick = {
                         expanded = false
                         onOptionSelected(option)
-                    }
+                    },
+                    modifier = Modifier.semantics { contentDescription = dropdownItemContentDesc } // OK to construct string here
                 )
             }
         }
-    }
-}
-
-suspend fun startHashing(
-    originalText: String,
-    numHashLevels: String,
-    numRepsPerHashLevel: String,
-    encoding: String,
-    onUpdateHashDisplay: (String) -> Unit,
-    onUpdateStatusLabel: (String) -> Unit,
-    onComplete: () -> Unit
-) {
-    val hashLevels = validateAndParseInput(numHashLevels, 1000)
-    val repsPerLevel = validateAndParseInput(numRepsPerHashLevel, 100000)
-    var repeatedText: String
-    var repeatedHash: String
-    var hashedText: String = originalText // Start with the original text for hashing
-
-    withContext(Dispatchers.Default) {
-        hashedText = NativeLib.InitInstance().CalcHash(originalText, repsPerLevel, hashLevels, 0);
-//        for (level in 1..hashLevels) {
-//            repeatedText = (1..repsPerLevel).joinToString("\n") { hashedText } // Repeat using the current hash value
-//            hashedText = sha512(repeatedText)
-//
-//            repeatedHash = ""
-//            for (i in 1..repsPerLevel) {
-//                repeatedHash += "$originalText: $hashedText\n"
-//            }
-//            hashedText = sha512("$originalText: $repeatedHash")
-//
-//            // Update the UI after completing each hash level
-//            withContext(Dispatchers.Main) {
-//                onUpdateHashDisplay(
-//                    when (encoding) {
-//                        "64-Bit" -> sha64(hashedText)
-//                        "256-Bit" -> sha256(hashedText) // Display 256-bit hash on one line
-//                        "512-Bit" -> hashedText // Display 512-bit hash on one line
-//                        else -> hashedText.chunked(64).joinToString("") // Join without line breaks
-//                    }
-//                )
-//                onUpdateStatusLabel(
-//                    "$level / $hashLevels Hash Levels Converted."
-//                )
-//            }
-//        }
-
-        // Ensure the final hash value is displayed when complete
-        withContext(Dispatchers.Main) {
-            onUpdateHashDisplay(
-                when (encoding) {
-                    "64-Bit" -> sha64(hashedText)
-                    "256-Bit" -> sha256(hashedText)
-                    "512-Bit" -> hashedText
-                    else -> hashedText.chunked(64).joinToString("")
-                }
-            )
-            onComplete()
-        }
-    }
-}
-
-fun sha512(input: String): String {
-    val md = MessageDigest.getInstance("SHA-512")
-    val digest = md.digest(input.toByteArray())
-    return BigInteger(1, digest).toString(16).padStart(128, '0').toUpperCase(Locale.ROOT)
-}
-
-fun sha256(input: String): String {
-    val md = MessageDigest.getInstance("SHA-256")
-    val digest = md.digest(input.toByteArray())
-    return BigInteger(1, digest).toString(16).padStart(64, '0').toUpperCase(Locale.ROOT)
-}
-
-fun sha64(input: String): String {
-    val sha512Hash = sha512(input)
-    val chunks = sha512Hash.chunked(16).map { BigInteger(it, 16) }
-    val sum = chunks.reduce { acc, next -> acc.add(next) }
-    return sum.toString(16).padStart(16, '0').take(16).toUpperCase(Locale.ROOT)
-}
-
-fun validateAndParseInput(input: String, maxValue: Int): Int {
-//    val normalizedInput = input.trim().toUpperCase(Locale.ROOT)
-//    val value = when {
-//        normalizedInput.endsWith("K") -> (normalizedInput.dropLast(1).toDouble() * 1000).toInt()
-//        normalizedInput.endsWith("M") -> (normalizedInput.dropLast(1).toDouble() * 1000000).toInt()
-//        else -> input.toIntOrNull() ?: 1
-//    }
-//    return value.coerceAtMost(maxValue)
-
-    val normalizedInput = input.trim().toUpperCase(Locale.ROOT)
-    return try {
-        val value = when {
-            normalizedInput.endsWith("K") -> (normalizedInput.dropLast(1).toDouble() * 1000).toInt()
-            normalizedInput.endsWith("M") -> (normalizedInput.dropLast(1).toDouble() * 1000000).toInt()
-            else -> input.toIntOrNull() ?: 1
-        }
-        value.coerceAtMost(maxValue)
-    } catch (e: Exception) {
-        // Handle the exception (e.g., log it, return a default value, etc.)
-        1 // Default value in case of an error
     }
 }

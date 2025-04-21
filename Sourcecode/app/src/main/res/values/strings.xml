@@ -1,3 +1,36 @@
 <resources>
-    <string name="app_name">Multihasher</string>
+    <string name="app_name">Multihasher by AnthroHeart</string>
+
+    <!-- Labels -->
+    <string name="label_intention">Intention to Multihash</string>
+    <string name="label_hash_levels">Hash Levels [%1$d-%2$d]</string> <!-- Args: Min, Max -->
+    <string name="label_reps_per_level">Reps per Level [%1$d-%2$dk]</string> <!-- Args: Min, Max (in K) -->
+    <string name="label_encoding">Encoding</string>
+
+    <!-- Buttons -->
+    <string name="button_load_file">Load File</string>
+    <string name="button_start">Start</string>
+    <string name="button_stop">Stop</string>
+
+    <!-- Status Messages -->
+    <string name="status_idle">Ready.</string>
+    <string name="status_calculating">Calculating Hash…</string>
+    <string name="status_completed">%1$d Levels, %2$d Reps/Level Completed.</string> <!-- Args: Levels Count, Reps Count -->
+    <string name="status_stopped_user">Hashing stopped by user.</string>
+    <string name="status_cancelled">Hashing cancelled.</string>
+    <string name="status_error">Error during hashing: %1$s</string> <!-- Arg: error message -->
+    <string name="status_stopping">Stopping hash calculation…</string>
+
+    <!-- Toasts / Popups -->
+    <string name="toast_hash_copied">Hash copied to clipboard</string>
+    <string name="toast_error_reading_file">Error reading file: %1$s</string> <!-- Arg: error message -->
+
+    <!-- Content Descriptions (for Accessibility) -->
+    <string name="cd_load_file">Load file content into intention input</string>
+    <string name="cd_start_hashing">Start the hashing process</string>
+    <string name="cd_stop_hashing">Stop the current hashing process</string>
+    <string name="cd_hash_result">Hash Result Display. Click to copy.</string>
+    <string name="cd_copy_hash">Copy hash to clipboard</string> <!-- NEW -->
+    <string name="cd_hash_result_text">Generated hash value</string> <!-- NEW (Optional description for the text itself) -->
+    <string name="placeholder_hash_display">Hash result will appear here</string>
 </resources>

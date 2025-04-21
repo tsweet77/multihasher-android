@@ -11,8 +11,8 @@ android {
         applicationId = "com.anthroteacher.multihasher"
         minSdk = 28
         targetSdk = 34
-        versionCode = 30
-        versionName = "1.30"
+        versionCode = 31
+        versionName = "1.31"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -53,22 +53,41 @@ android {
 
 dependencies {
 
+    // Core and Lifecycle
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    // NEW: Needed for collectAsStateWithLifecycle
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    // NEW: Needed for by viewModels() delegate and ViewModel integration
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+
+    // Activity
     implementation(libs.androidx.activity.compose)
+
+    // Compose BOM (Bill of Materials) - manages versions for Compose libraries
     implementation(platform(libs.androidx.compose.bom))
+
+    // Compose UI Toolkit
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    // NEW: Required for Icons like Icons.Filled.PlayArrow, etc.
+    implementation(libs.androidx.compose.material.icons.core) // Or libs.androidx.material.icons.core if defined that way
+    implementation(libs.androidx.compose.material.icons.extended) // Or libs.androidx.material.icons.extended
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(platform(libs.androidx.compose.bom)) // Use BOM for consistent test versions
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    // Debugging
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    // Your Native Library Module
     implementation(project(":sha3"))
 
 }

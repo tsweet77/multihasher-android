@@ -1,36 +1,54 @@
+# This file is used by Gradle to define versions and library dependencies
+# Read more: https://docs.gradle.org/current/userguide/platforms.html#sub::toml-dependencies-format
+
 [versions]
-agp = "8.6.0"
-kotlin = "1.9.0"
+agp = "8.6.0" # Or your specific AGP version
+kotlin = "1.9.0" # Or your specific Kotlin version. Consider updating to 1.9.2x+ for better Compose compatibility
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
-lifecycleRuntimeKtx = "2.7.0"
+lifecycleRuntimeKtx = "2.7.0" # Matches lifecycle version below, redundant but okay
 activityCompose = "1.9.0"
+# Use a more recent Compose BOM version if possible, e.g., 2024.05.00 or check latest
 composeBom = "2023.08.00"
 appcompat = "1.7.0"
 material = "1.12.0"
+lifecycle = "2.7.0" # For Lifecycle libraries including ViewModel and Runtime Compose
 
 [libraries]
+# AndroidX Core & Lifecycle
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" } # Uses specific version ref - ok
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycle" } # NEW - Needed for collectAsStateWithLifecycle
+androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "lifecycle" } # NEW - Needed for ViewModel integration
+
+# AndroidX Activity
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+
+# Compose - BOM manages versions for UI, Graphics, Material3, Icons etc.
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
+androidx-ui = { group = "androidx.compose.ui", name = "ui" } # No version needed - managed by BOM
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" } # No version needed - managed by BOM
+androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" } # No version needed - managed by BOM
+androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" } # No version needed - managed by BOM
+androidx-material3 = { group = "androidx.compose.material3", name = "material3" } # No version needed - managed by BOM
+androidx-compose-material-icons-core = { group = "androidx.compose.material", name = "material-icons-core" } # NEW - No version needed - managed by BOM
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" } # NEW - No version needed - managed by BOM
+
+# Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
-androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
-androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
-androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
-androidx-ui = { group = "androidx.compose.ui", name = "ui" }
-androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
-androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
-androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
-androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" } # No version needed - managed by BOM
+androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" } # No version needed - managed by BOM
+
+# Legacy / Other (Keep if needed by your project, otherwise can be removed if not used)
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" } # This is the older Material Components library, not Material 3 Compose
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-android-library = { id = "com.android.library", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" } # Keep if you have library modules
 

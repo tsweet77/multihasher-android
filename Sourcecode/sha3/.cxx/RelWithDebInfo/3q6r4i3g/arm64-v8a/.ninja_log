@@ -1,20 +1,6 @@
 # ninja log v5
-34	285	7478599443885685	CMakeFiles/sha3.dir/sha3_.cpp.o	6c88a6b74688d163
-17	294	7478599443955656	CMakeFiles/sha3.dir/keccak1600.cpp.o	640f6d77073dbc92
-103	612	7478599447063438	CMakeFiles/sha3.dir/sha512.cpp.o	57950ef8d0ece325
-0	1466	7478599455616839	CMakeFiles/sha3.dir/sha3.cpp.o	fb5282569a9d70c5
-1476	1754	7478599458497072	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/arm64-v8a/libsha3.so	53afda2a022934f
-9	461	7478600097185732	CMakeFiles/sha3.dir/sha512.cpp.o	57950ef8d0ece325
-461	851	7478600100225190	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/arm64-v8a/libsha3.so	53afda2a022934f
-31	707	7478633280545717	CMakeFiles/sha3.dir/sha512.cpp.o	57950ef8d0ece325
-707	1031	7478633284106455	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/arm64-v8a/libsha3.so	53afda2a022934f
-11	434	7478633510084771	CMakeFiles/sha3.dir/sha512.cpp.o	57950ef8d0ece325
-435	622	7478633511973996	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/arm64-v8a/libsha3.so	53afda2a022934f
-18	532	7479101835046696	CMakeFiles/sha3.dir/sha512.cpp.o	57950ef8d0ece325
-532	728	7479101837888587	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/arm64-v8a/libsha3.so	53afda2a022934f
-0	20	0	clean	a714084f8e97b6
-102	386	7479105825219404	CMakeFiles/sha3.dir/sha3_.cpp.o	6c88a6b74688d163
-22	394	7479105825304899	CMakeFiles/sha3.dir/keccak1600.cpp.o	640f6d77073dbc92
-60	524	7479105826648480	CMakeFiles/sha3.dir/sha512.cpp.o	57950ef8d0ece325
-3	1484	7479105836141627	CMakeFiles/sha3.dir/sha3.cpp.o	fb5282569a9d70c5
-1484	1688	7479105838243839	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/arm64-v8a/libsha3.so	53afda2a022934f
+106	576	7774682394046723	CMakeFiles/sha3.dir/sha3_.cpp.o	6c88a6b74688d163
+67	598	7774682394231586	CMakeFiles/sha3.dir/keccak1600.cpp.o	640f6d77073dbc92
+138	957	7774682397739962	CMakeFiles/sha3.dir/sha512.cpp.o	57950ef8d0ece325
+1	4482	7774682433045251	CMakeFiles/sha3.dir/sha3.cpp.o	fb5282569a9d70c5
+4492	4734	7774682435522976	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/arm64-v8a/libsha3.so	53afda2a022934f

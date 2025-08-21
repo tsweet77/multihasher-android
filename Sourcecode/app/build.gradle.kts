@@ -5,14 +5,14 @@ plugins {
 
 android {
     namespace = "com.anthroteacher.multihasher"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.anthroteacher.multihasher"
         minSdk = 28
-        targetSdk = 34
-        versionCode = 31
-        versionName = "1.31"
+        targetSdk = 35
+        versionCode = 32
+        versionName = "1.32"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

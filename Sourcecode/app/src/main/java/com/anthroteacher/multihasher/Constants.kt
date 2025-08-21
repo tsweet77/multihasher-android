@@ -4,7 +4,7 @@ import androidx.compose.ui.unit.dp
 
 object AppConstants {
     const val APP_NAME = "Multihasher"
-    const val VERSION = "Version 1.31 (Awesome)" // Updated version
+    const val VERSION = "Version 1.32 (Awesome)" // Updated version
 
     // Input Limits & Defaults
     const val MAX_INTENTION_LENGTH = 10000

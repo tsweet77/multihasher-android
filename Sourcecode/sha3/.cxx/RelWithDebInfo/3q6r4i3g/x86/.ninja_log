@@ -1,20 +1,6 @@
 # ninja log v5
-0	219	7478599532845504	CMakeFiles/sha3.dir/keccak1600.cpp.o	22aa7e82f2dffd8d
-76	250	7478599533185588	CMakeFiles/sha3.dir/sha3_.cpp.o	ebf0b0272242b2da
-37	285	7478599533518035	CMakeFiles/sha3.dir/sha512.cpp.o	4fe6d1256f640141
-10	1174	7478599542298962	CMakeFiles/sha3.dir/sha3.cpp.o	4f7fa27d14a156ce
-1179	1326	7478599543914356	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/x86/libsha3.so	a566edefde371112
-3	229	7478600111865413	CMakeFiles/sha3.dir/sha512.cpp.o	4fe6d1256f640141
-229	409	7478600113664472	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/x86/libsha3.so	a566edefde371112
-5	199	7478633296639714	CMakeFiles/sha3.dir/sha512.cpp.o	4fe6d1256f640141
-199	383	7478633298471681	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/x86/libsha3.so	a566edefde371112
-3	219	7478633522421735	CMakeFiles/sha3.dir/sha512.cpp.o	4fe6d1256f640141
-219	392	7478633524266245	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/x86/libsha3.so	a566edefde371112
-4	203	7479101849132384	CMakeFiles/sha3.dir/sha512.cpp.o	4fe6d1256f640141
-204	398	7479101851074352	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/x86/libsha3.so	a566edefde371112
-0	20	0	clean	a714084f8e97b6
-75	328	7479105859000772	CMakeFiles/sha3.dir/sha3_.cpp.o	ebf0b0272242b2da
-56	377	7479105859506925	CMakeFiles/sha3.dir/keccak1600.cpp.o	22aa7e82f2dffd8d
-100	402	7479105859742596	CMakeFiles/sha3.dir/sha512.cpp.o	4fe6d1256f640141
-4	1290	7479105868378619	CMakeFiles/sha3.dir/sha3.cpp.o	4f7fa27d14a156ce
-1290	1454	7479105870247868	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/x86/libsha3.so	a566edefde371112
+14	227	7774682501923064	CMakeFiles/sha3.dir/keccak1600.cpp.o	22aa7e82f2dffd8d
+95	259	7774682502233308	CMakeFiles/sha3.dir/sha3_.cpp.o	ebf0b0272242b2da
+38	265	7774682502293338	CMakeFiles/sha3.dir/sha512.cpp.o	4fe6d1256f640141
+0	994	7774682509504617	CMakeFiles/sha3.dir/sha3.cpp.o	4f7fa27d14a156ce
+999	1172	7774682511301251	C:/22/MultiHasher/sha3/build/intermediates/cxx/RelWithDebInfo/3q6r4i3g/obj/x86/libsha3.so	a566edefde371112
